@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوبر ماركت - متجر أونلاين</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cairo@4.5.0/index.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: #f8faf8; color: #2d3436; overflow-x: hidden; }
+        .top-bar { background: #1a5e1a; color: white; padding: 8px 0; font-size: 13px; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        .top-bar a { color: white; text-decoration: none; margin-left: 20px; }
+        .header { background: white; box-shadow: 0 2px 20px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .header .container { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; gap: 20px; max-width: 1280px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-icon { width: 50px; height: 50px; background: linear-gradient(135deg, #27ae60, #2ecc71); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; }
+        .logo-text h1 { font-size: 22px; color: #1a5e1a; line-height: 1.2; }
+        .logo-text span { font-size: 11px; color: #888; }
+        .search-bar { flex: 1; max-width: 500px; position: relative; }
+        .search-bar input { width: 100%; padding: 12px 50px 12px 20px; border: 2px solid #e8e8e8; border-radius: 50px; font-size: 14px; font-family: 'Cairo', sans-serif; }
+        .search-bar input:focus { outline: none; border-color: #27ae60; }
+        .search-bar button { position: absolute; left: 5px; top: 50%; transform: translateY(-50%); background: #27ae60; border: none; color: white; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        .header-btn { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border: 2px solid #e8e8e8; border-radius: 50px; text-decoration: none; color: #2d3436; font-size: 14px; background: white; cursor: pointer; }
+        .cart-btn { background: #27ae60; color: white; border-color: #27ae60; position: relative; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: #e74c3c; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
+        .nav-bar { background: white; border-top: 1px solid #f0f0f0; overflow-x: auto; }
+        .nav-bar .container { display: flex; align-items: center; gap: 5px; padding: 0 20px; max-width: 1280px; margin: 0 auto; }
+        .nav-link { padding: 14px 18px; text-decoration: none; color: #555; font-size: 14px; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .nav-link:hover, .nav-link.active { color: #27ae60; border-bottom-color: #27ae60; }
+        .hero { padding: 30px 20px; max-width: 1280px; margin: 0 auto; }
+        .hero-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .hero-main { background: linear-gradient(135deg, #27ae60, #2ecc71); border-radius: 20px; padding: 40px; color: white; display: flex; flex-direction: column; justify-content: center; min-height: 250px; }
+        .hero-content h2 { font-size: 28px; margin-bottom: 10px; }
+        .hero-content p { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
+        .hero-btn { display: inline-flex; align-items: center; gap: 8px; background: white; color: #27ae60; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; width: fit-content; }
+        .hero-side { display: flex; flex-direction: column; gap: 20px; }
+        .hero-card { flex: 1; border-radius: 20px; padding: 25px; color: white; display: flex; flex-direction: column; justify-content: center; }
+        .hero-card:first-child { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .hero-card:last-child { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .hero-card h3 { font-size: 18px; margin-bottom: 5px; }
+        .hero-card .discount { font-size: 24px; font-weight: 800; }
+        .categories { padding: 40px 20px; max-width: 1280px; margin: 0 auto; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .section-header h2 { font-size: 22px; color: #1a5e1a; }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; }
+        .category-card { background: white; border-radius: 16px; padding: 20px 10px; text-align: center; text-decoration: none; color: inherit; border: 2px solid transparent; }
+        .category-card:hover { border-color: #27ae60; transform: translateY(-3px); }
+        .category-icon { font-size: 35px; margin-bottom: 10px; }
+        .category-card h4 { font-size: 13px; color: #2d3436; }
+        .products-section { padding: 40px 20px; max-width: 1280px; margin: 0 auto; }
+        .products-tabs { display: flex; gap: 10px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 10px; }
+        .tab-btn { padding: 8px 20px; border: 2px solid #e8e8e8; border-radius: 50px; background: white; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600; color: #555; white-space: nowrap; }
+        .tab-btn.active { background: #27ae60; color: white; border-color: #27ae60; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; }
+        .product-card { background: white; border-radius: 16px; overflow: hidden; border: 1px solid #f0f0f0; position: relative; }
+        .product-badge { position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 700; }
+        .product-badge.new { background: #27ae60; }
+        .product-image { width: 100%; height: 150px; display: flex; align-items: center; justify-content: center; background: #fafffe; font-size: 60px; }
+        .product-info { padding: 15px; }
+        .product-category { font-size: 11px; color: #27ae60; font-weight: 600; }
+        .product-name { font-size: 14px; font-weight: 700; margin: 5px 0; color: #2d3436; }
+        .product-weight { font-size: 12px; color: #888; margin-bottom: 10px; }
+        .product-footer { display: flex; align-items: center; justify-content: space-between; }
+        .price-current { font-size: 18px; font-weight: 800; color: #27ae60; }
+        .price-old { font-size: 12px; color: #bbb; text-decoration: line-through; }
+        .add-to-cart { width: 38px; height: 38px; background: #27ae60; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+        .features { padding: 40px 20px; max-width: 1280px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .feature-card { background: white; border-radius: 16px; padding: 25px 15px; text-align: center; }
+        .feature-icon { font-size: 28px; color: #27ae60; margin-bottom: 10px; }
+        .feature-card h4 { font-size: 14px; margin-bottom: 5px; }
+        .feature-card p { font-size: 12px; color: #888; }
+        .deals-banner { padding: 40px 20px; max-width: 1280px; margin: 0 auto; }
+        .deals-content { background: linear-gradient(135deg, #1a5e1a, #27ae60); border-radius: 20px; padding: 40px; color: white; text-align: center; }
+        .deals-text h2 { font-size: 24px; margin-bottom: 10px; }
+        .deals-timer { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .timer-box { background: rgba(255,255,255,0.15); padding: 10px 15px; border-radius: 10px; min-width: 60px; }
+        .timer-box .number { font-size: 24px; font-weight: 800; display: block; }
+        .timer-box .label { font-size: 11px; opacity: 0.8; }
+        .footer { background: #1a2e1a; color: white; padding: 40px 20px 20px; text-align: center; }
+        .footer h3 { color: #2ecc71; margin-bottom: 15px; }
+        .footer p { color: #aaa; font-size: 13px; line-height: 1.8; margin-bottom: 20px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; color: #888; font-size: 12px; }
+        @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; } .hero-side { flex-direction: row; } }
+    </style>
+</head>
+  <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div><i class="fas fa-truck"></i> توصيل مجاني للطلبات فوق 200 ريال</div>
+            <div><a href="#"><i class="fas fa-phone"></i> 920000000</a></div>
+        </div>
+    </div>
 
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fas fa-leaf"></i></div>
+                <div class="logo-text">
+                    <h1>فريش ماركت</h1>
+                    <span>سوبر ماركت أونلاين</span>
+                </div>
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن منتجات..." id="searchInput">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="header-actions">
+                <a href="#" class="header-btn"><i class="fas fa-user"></i> حسابي</a>
+                <button class="header-btn cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i> السلة
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-main">
+                <div class="hero-content">
+                    <h2>خصومات تصل إلى 50% على الفواكه الطازجة</h2>
+                    <p>تسوق الآن واستمتع بأفضل الأسعار</p>
+                    <a href="#products" class="hero-btn">تسوق الآن <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+            <div class="hero-side">
+                <div class="hero-card">
+                    <h3>لحوم طازجة</h3>
+                    <div class="discount">30% خصم</div>
+                </div>
+                <div class="hero-card">
+                    <h3>منتجات عضوية</h3>
+                    <div class="discount">25% خصم</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="section-header">
+            <h2>تسوق حسب الفئة</h2>
+        </div>
+        <div class="categories-grid">
+            <a href="#" class="category-card"><div class="category-icon"></div><h4>فواكه طازجة</h4></a>
+            <a href="#" class="category-card"><div class="category-icon">🥬</div><h4>خضروات</h4></a>
+            <a href="#" class="category-card"><div class="category-icon">🥩</div><h4>لحوم ودواجن</h4></a>
+            <a href="#" class="category-card"><div class="category-icon">🧀</div><h4>ألبان وأجبان</h4></a>
+            <a href="#" class="category-card"><div class="category-icon">🥤</div><h4>مشروبات</h4></a>
+            <a href="#" class="category-card"><div class="category-icon">🍞</div><h4>مخابز</h4></a>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-section" id="products">
+        <div class="section-header">
+            <h2>منتجاتنا المميزة</h2>
+        </div>
+        <div class="products-tabs">
+            <button class="tab-btn active" onclick="filterProducts('all', this)">الكل</button>
+            <button class="tab-btn" onclick="filterProducts('fruits', this)">فواكه</button>
+            <button class="tab-btn" onclick="filterProducts('vegetables', this)">خضروات</button>
+            <button class="tab-btn" onclick="filterProducts('meat', this)">لحوم</button>
+            <button class="tab-btn" onclick="filterProducts('dairy', this)">ألبان</button>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon">🚚</div><h4>توصيل سريع</h4><p>خلال ساعتين</p></div>
+            <div class="feature-card"><div class="feature-icon">🛡️</div><h4>ضمان الجودة</h4><p>منتجات طازجة 100%</p></div>
+            <div class="feature-card"><div class="feature-icon">↩️</div><h4>إرجاع سهل</h4><p>خلال 24 ساعة</p></div>
+            <div class="feature-card"><div class="feature-icon">📞</div><h4>دعم 24/7</h4><p>خدمة عملاء متميزة</p></div>
+        </div>
+    </section>
+
+    <!-- Deals -->
+    <section class="deals-banner">
+        <div class="deals-content">
+            <div class="deals-text">
+                <h2>🔥 عروض نهاية الأسبوع</h2>
+                <div class="deals-timer">
+                    <div class="timer-box"><span class="number" id="hours">12</span><span class="label">ساعة</span></div>
+                    <div class="timer-box"><span class="number" id="minutes">45</span><span class="label">دقيقة</span></div>
+                    <div class="timer-box"><span class="number" id="seconds">30</span><span class="label">ثانية</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h3>🛒 فريش ماركت</h3>
+        <p>وجهتك الأولى للتسوق الإلكتروني. نوفر لك أفضل المنتجات الطازجة بأسعار منافسة.</p>
+        <div class="footer-bottom">© 2026 فريش ماركت. جميع الحقوق محفوظة</div>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: 'تفاح أحمر طازج', category: 'fruits', catLabel: 'فواكه', price: 15.99, oldPrice: 22.99, weight: '1 كيلو', emoji: '🍎', badge: '-30%' },
+            { id: 2, name: 'موز عضوي', category: 'fruits', catLabel: 'فواكه', price: 9.99, oldPrice: 14.99, weight: '1 كيلو', emoji: '🍌', badge: '-33%' },
+            { id: 3, name: 'فراولة طازجة', category: 'fruits', catLabel: 'فواكه', price: 19.99, oldPrice: null, weight: '500 جرام', emoji: '🍓', badge: 'جديد' },
+            { id: 4, name: 'برتقال عصير', category: 'fruits', catLabel: 'فواكه', price: 12.99, oldPrice: 18.99, weight: '1 كيلو', emoji: '🍊', badge: '-31%' },
+            { id: 5, name: 'طماطم بلدي', category: 'vegetables', catLabel: 'خضروات', price: 7.99, oldPrice: 11.99, weight: '1 كيلو', emoji: '🍅', badge: '-33%' },
+            { id: 6, name: 'خيار بلدي', category: 'vegetables', catLabel: 'خضروات', price: 5.99, oldPrice: null, weight: '1 كيلو', emoji: '🥒', badge: 'جديد' },
+            { id: 7, name: 'صدور دجاج', category: 'meat', catLabel: 'لحوم', price: 34.99, oldPrice: 44.99, weight: '1 كيلو', emoji: '', badge: '-22%' },
+            { id: 8, name: 'لحم بقري', category: 'meat', catLabel: 'لحوم', price: 79.99, oldPrice: 99.99, weight: '1 كيلو', emoji: '', badge: '-20%' },
+            { id: 9, name: 'حليب طازج', category: 'dairy', catLabel: 'ألبان', price: 8.99, oldPrice: null, weight: '1 لتر', emoji: '🥛', badge: 'جديد' },
+            { id: 10, name: 'جبنة شيدر', category: 'dairy', catLabel: 'ألبان', price: 22.99, oldPrice: 29.99, weight: '400 جرام', emoji: '🧀', badge: '-23%' },
+        ];
+
+        let cart = [];
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card">
+                    ${p.badge ? `<span class="product-badge ${p.badge === 'جديد' ? 'new' : ''}">${p.badge}</span>` : ''}
+                    <div class="product-image">${p.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-category">${p.catLabel}</div>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div class="product-weight">${p.weight}</div>
+                        <div class="product-footer">
+                            <div>
+                                <div class="price-current">${p.price} ريال</div>
+                                ${p.oldPrice ? `<div class="price-old">${p.oldPrice} ريال</div>` : ''}
+                            </div>
+                            <button class="add-to-cart" onclick="addToCart(${p.id})"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(cat, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts(cat);
+        }
+
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            const existing = cart.find(x => x.id === id);
+            if (existing) existing.qty++;
+            else cart.push({ ...p, qty: 1 });
+            updateCart();
+            showToast(`تمت إضافة "${p.name}" للسلة`);
+        }
+
+        function updateCart() {
+            const total = cart.reduce((s, i) => s + i.qty, 0);
+            const price = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        function toggleCart() {
+            if (cart.length === 0) { showToast('السلة فارغة!'); return; }
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            showToast(`الإجمالي: ${total.toFixed(2)} ريال - سيتم التواصل معك قريباً!`);
+            cart = [];
+            updateCart();
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#27ae60;color:white;padding:15px 25px;border-radius:12px;font-family:Cairo;z-index:9999;box-shadow:0 5px 20px rgba(0,0,0,0.2);';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        function startTimer() {
+            let s = 12*3600 + 45*60 + 30;
+            setInterval(() => {
+                s--;
+                if (s <= 0) s = 24*3600;
+                document.getElementById('hours').textContent = Math.floor(s/3600).toString().padStart(2,'0');
+                document.getElementById('minutes').textContent = Math.floor((s%3600)/60).toString().padStart(2,'0');
+                document.getElementById('seconds').textContent = (s%60).toString().padStart(2,'0');
+            }, 1000);
+        }
+
+        renderProducts();
+        startTimer();
+    </script>
+</body>
+</html>
