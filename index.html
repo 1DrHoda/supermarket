@@ -265,12 +265,32 @@
         }
 
         function toggleCart() {
-            if (cart.length === 0) { showToast('السلة فارغة!'); return; }
-            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-            showToast(`الإجمالي: ${total.toFixed(2)} ريال - سيتم التواصل معك قريباً!`);
-            cart = [];
-            updateCart();
-        }
+    if (cart.length === 0) { 
+        showToast('السلة فارغة!'); 
+        return; 
+    }
+    
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    
+    let message = '*طلب جديد من المتجر*%0A%0A';
+    message += '*المنتجات:*%0A';
+    cart.forEach(item => {
+        message += `- ${item.name} (${item.qty}) × ${item.price} ريال = ${item.price * item.qty} ريال%0A`;
+    });
+    message += `%0A*الإجمالي: ${total.toFixed(2)} ريال*%0A%0A`;
+    message += '*العنوان:*%0A';
+    message += '(اكتبي عنوانك هنا)%0A%0A';
+    message += '*رقم الهاتف:*%0A';
+    message += '(اكتبي رقمك هنا)';
+    
+    const phone = '201040468327';
+    const whatsappURL = `https://wa.me/${phone}?text=${message}`;
+    window.open(whatsappURL, '_blank');
+    
+    showToast('سيتم تحويلك إلى واتساب');
+    cart = [];
+    updateCart();
+}
 
         function showToast(msg) {
             const t = document.createElement('div');
