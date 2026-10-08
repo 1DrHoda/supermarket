@@ -92,7 +92,7 @@
     <div class="top-bar">
         <div class="container">
             <div><i class="fas fa-truck"></i> توصيل مجاني للطلبات فوق 200 ريال</div>
-            <div><a href="#"><i class="fas fa-phone"></i> 920000000</a></div>
+            <div><a href="#"><i class="fas fa-phone"></i> 011247965</a></div>
         </div>
     </div>
 
@@ -169,6 +169,7 @@
             <button class="tab-btn" onclick="filterProducts('vegetables', this)">خضروات</button>
             <button class="tab-btn" onclick="filterProducts('meat', this)">لحوم</button>
             <button class="tab-btn" onclick="filterProducts('dairy', this)">ألبان</button>
+            <button class="tab-btn" onclick="filterProducts('skincare', this)">عناية بالبشرة</button>
         </div>
         <div class="products-grid" id="productsGrid"></div>
     </section>
@@ -207,7 +208,7 @@
     <script>
         const products = [
             { id: 1, name: 'تفاح أحمر طازج', category: 'fruits', catLabel: 'فواكه', price: 15.99, oldPrice: 22.99, weight: '1 كيلو', emoji: '🍎', badge: '-30%' },
-            { id: 2, name: 'موز عضوي', category: 'fruits', catLabel: 'فواكه', price: 9.99, oldPrice: 14.99, weight: '1 كيلو', emoji: '🍌', badge: '-33%' },
+            { id: 2, name: 'موز ', category: 'fruits', catLabel: 'فواكه', price: 9.99, oldPrice: 14.99, weight: '1 كيلو', emoji: '🍌', badge: '-33%' },
             { id: 3, name: 'فراولة طازجة', category: 'fruits', catLabel: 'فواكه', price: 19.99, oldPrice: null, weight: '500 جرام', emoji: '🍓', badge: 'جديد' },
             { id: 4, name: 'برتقال عصير', category: 'fruits', catLabel: 'فواكه', price: 12.99, oldPrice: 18.99, weight: '1 كيلو', emoji: '🍊', badge: '-31%' },
             { id: 5, name: 'طماطم بلدي', category: 'vegetables', catLabel: 'خضروات', price: 7.99, oldPrice: 11.99, weight: '1 كيلو', emoji: '🍅', badge: '-33%' },
@@ -216,6 +217,7 @@
             { id: 8, name: 'لحم بقري', category: 'meat', catLabel: 'لحوم', price: 79.99, oldPrice: 99.99, weight: '1 كيلو', emoji: '', badge: '-20%' },
             { id: 9, name: 'حليب طازج', category: 'dairy', catLabel: 'ألبان', price: 8.99, oldPrice: null, weight: '1 لتر', emoji: '🥛', badge: 'جديد' },
             { id: 10, name: 'جبنة شيدر', category: 'dairy', catLabel: 'ألبان', price: 22.99, oldPrice: 29.99, weight: '400 جرام', emoji: '🧀', badge: '-23%' },
+            { id: 11, name: 'صابون لوكس ياسمين', category: 'skincare', catLabel: 'العناية بالبشرة', price: 25.00, oldPrice: 35.00, weight: 'قطعة', image: 'https://i.ibb.co/q36j4VXy/lux.jpg', badge: 'جديد' },
         ];
 
         let cart = [];
@@ -283,7 +285,7 @@
     message += '*رقم الهاتف:*%0A';
     message += '(اكتبي رقمك هنا)';
     
-    const phone = '201040468327';
+    const phone = '966540384853';
     const whatsappURL = `https://wa.me/${phone}?text=${message}`;
     window.open(whatsappURL, '_blank');
     
