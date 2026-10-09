@@ -120,56 +120,16 @@
         </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-grid">
-            <div class="hero-main">
-                <div class="hero-content">
-                    <h2>خصومات تصل إلى 50% على الفواكه الطازجة</h2>
-                    <p>تسوق الآن واستمتع بأفضل الأسعار</p>
-                    <a href="#products" class="hero-btn">تسوق الآن <i class="fas fa-arrow-left"></i></a>
-                </div>
-            </div>
-            <div class="hero-side">
-                <div class="hero-card">
-                    <h3>لحوم طازجة</h3>
-                    <div class="discount">30% خصم</div>
-                </div>
-                <div class="hero-card">
-                    <h3>منتجات عضوية</h3>
-                    <div class="discount">25% خصم</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories -->
-    <section class="categories">
-        <div class="section-header">
-            <h2>تسوق حسب الفئة</h2>
-        </div>
-        <div class="categories-grid">
-            <a href="#" class="category-card"><div class="category-icon"></div><h4>فواكه طازجة</h4></a>
-            <a href="#" class="category-card"><div class="category-icon">🥬</div><h4>خضروات</h4></a>
-            <a href="#" class="category-card"><div class="category-icon">🥩</div><h4>لحوم ودواجن</h4></a>
-            <a href="#" class="category-card"><div class="category-icon">🧀</div><h4>ألبان وأجبان</h4></a>
-            <a href="#" class="category-card"><div class="category-icon">🥤</div><h4>مشروبات</h4></a>
-            <a href="#" class="category-card"><div class="category-icon">🍞</div><h4>مخابز</h4></a>
-        </div>
-    </section>
-
+    
+      
     <!-- Products -->
     <section class="products-section" id="products">
         <div class="section-header">
             <h2>منتجاتنا المميزة</h2>
         </div>
         <div class="products-tabs">
-            <button class="tab-btn active" onclick="filterProducts('all', this)">الكل</button>
-            <button class="tab-btn" onclick="filterProducts('fruits', this)">فواكه</button>
-            <button class="tab-btn" onclick="filterProducts('vegetables', this)">خضروات</button>
-            <button class="tab-btn" onclick="filterProducts('meat', this)">لحوم</button>
-            <button class="tab-btn" onclick="filterProducts('dairy', this)">ألبان</button>
-            <button class="tab-btn" onclick="filterProducts('skincare', this)">عناية بالبشرة</button>
+    <button class="tab-btn active" onclick="filterProducts('all', this)">الكل</button>
+    <button class="tab-btn" onclick="filterProducts('skincare', this)">العناية بالبشرة</button>
         </div>
         <div class="products-grid" id="productsGrid"></div>
     </section>
@@ -206,20 +166,40 @@
     </footer>
 
     <script>
-        const products = [
-            { id: 1, name: 'تفاح أحمر طازج', category: 'fruits', catLabel: 'فواكه', price: 15.99, oldPrice: 22.99, weight: '1 كيلو', emoji: '🍎', badge: '-30%' },
-            { id: 2, name: 'موز ', category: 'fruits', catLabel: 'فواكه', price: 9.99, oldPrice: 14.99, weight: '1 كيلو', emoji: '🍌', badge: '-33%' },
-            { id: 3, name: 'فراولة طازجة', category: 'fruits', catLabel: 'فواكه', price: 19.99, oldPrice: null, weight: '500 جرام', emoji: '🍓', badge: 'جديد' },
-            { id: 4, name: 'برتقال عصير', category: 'fruits', catLabel: 'فواكه', price: 12.99, oldPrice: 18.99, weight: '1 كيلو', emoji: '🍊', badge: '-31%' },
-            { id: 5, name: 'طماطم بلدي', category: 'vegetables', catLabel: 'خضروات', price: 7.99, oldPrice: 11.99, weight: '1 كيلو', emoji: '🍅', badge: '-33%' },
-            { id: 6, name: 'خيار بلدي', category: 'vegetables', catLabel: 'خضروات', price: 5.99, oldPrice: null, weight: '1 كيلو', emoji: '🥒', badge: 'جديد' },
-            { id: 7, name: 'صدور دجاج', category: 'meat', catLabel: 'لحوم', price: 34.99, oldPrice: 44.99, weight: '1 كيلو', emoji: '', badge: '-22%' },
-            { id: 8, name: 'لحم بقري', category: 'meat', catLabel: 'لحوم', price: 79.99, oldPrice: 99.99, weight: '1 كيلو', emoji: '', badge: '-20%' },
-            { id: 9, name: 'حليب طازج', category: 'dairy', catLabel: 'ألبان', price: 8.99, oldPrice: null, weight: '1 لتر', emoji: '🥛', badge: 'جديد' },
-            { id: 10, name: 'جبنة شيدر', category: 'dairy', catLabel: 'ألبان', price: 22.99, oldPrice: 29.99, weight: '400 جرام', emoji: '🧀', badge: '-23%' },
-            { id: 11, name: 'صابون لوكس ياسمين', category: 'skincare', catLabel: 'العناية بالبشرة', price: 25.00, oldPrice: 35.00, weight: 'قطعة', image: 'https://i.ibb.co/q36j4VXy/lux.jpg', badge: 'جديد' },
-        ];
+        let products = [];
 
+async function loadProducts() {
+    const sheetId = '1bWfEKypYF7NAOJNqTAZUefKr_eL-5KhA9caESeYDExA';
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+    
+    try {
+        const response = await fetch(url);
+        const text = await response.text();
+        const jsonText = text.substring(47).slice(0, -2);
+        const data = JSON.parse(jsonText);
+        
+        products = data.table.rows
+            .filter(row => row.c && row.c[0]) // تجاهل الصفوف الفارغة
+            .map(row => {
+                const c = row.c;
+                return {
+                    id: c[0].v || '',
+                    name: c[1] ? c[1].v : '',
+                    category: c[2] ? c[2].v : '',
+                    catLabel: c[3] ? c[3].v : '',
+                    price: c[4] ? c[4].v : 0,
+                    oldPrice: c[5] ? c[5].v : null,
+                    weight: c[6] ? c[6].v : '',
+                    image: c[7] ? c[7].v : '',
+                    badge: c[8] ? c[8].v : ''
+                };
+            });
+        
+        renderProducts();
+    } catch (error) {
+        console.error('خطأ في تحميل المنتجات:', error);
+    }
+                    }
         let cart = [];
 
         function renderProducts(filter = 'all') {
@@ -342,7 +322,7 @@
                 grid.innerHTML = '<p style="text-align:center;padding:40px;color:#888;">لا توجد نتائج</p>';
             }
         });   
-        renderProducts();
+        loadProducts();
         startTimer();
     </script>
 </body>
